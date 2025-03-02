@@ -7,10 +7,12 @@ import com.carwash.S.I_car_wash.dto.AppointmentDTO;
 import com.carwash.S.I_car_wash.repository.UserRepository;
 import com.carwash.S.I_car_wash.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
@@ -23,6 +25,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public Appointment createAppointment(AppointmentDTO appointmentDTO) {
 
         Optional<User> userOptional = userRepository.findById(appointmentDTO.getUserId());
+
 
         if (userOptional.isEmpty()) {
             throw new RuntimeException("User not found with ID: " + appointmentDTO.getUserId());

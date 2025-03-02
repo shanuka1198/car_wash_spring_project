@@ -1,43 +1,51 @@
 package com.carwash.S.I_car_wash.Entity;
 
 import jakarta.persistence.*;
-import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
 public class User {
-
-    public enum Role{
+    public enum Role {
         ADMIN,
         CLIENT
     }
-     @Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
     @Column(nullable = false)
     private String userName;
-    @Column(nullable = false)
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     @Column(nullable = false)
     private String address;
-    @Column(nullable = false)
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role role;
 
-    @OneToMany(mappedBy = "user",targetEntity = Appointment.class)
-    private List<Appointment>appointments;
+    @Column(nullable = false)
+    private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Appointment> appointments=new ArrayList<>();
+
 
     public User() {
     }
 
-    public User(Long userId, String userName, String email, String address, Role role, List<Appointment> appointments) {
-        this.userId = userId;
+    public User(String userName, String email, String address, Role role, String password, List<Appointment> appointments) {
         this.userName = userName;
         this.email = email;
         this.address = address;
         this.role = role;
+        this.password = password;
         this.appointments = appointments;
     }
 
@@ -81,6 +89,14 @@ public class User {
         this.role = role;
     }
 
+    public String getPassword(String password) {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public List<Appointment> getAppointments() {
         return appointments;
     }
@@ -88,5 +104,4 @@ public class User {
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
     }
-
 }

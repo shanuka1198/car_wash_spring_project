@@ -22,12 +22,11 @@ public class Appointment {
     @Column(nullable = false)
     private String serviceType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Appointment(Long appointmentId, LocalDateTime appointmentDateTime, String vehicleType, String serviceType, User user) {
-        this.appointmentId = appointmentId;
+    public Appointment( LocalDateTime appointmentDateTime, String vehicleType, String serviceType, User user) {
         this.appointmentDateTime = appointmentDateTime;
         this.vehicleType = vehicleType;
         this.serviceType = serviceType;

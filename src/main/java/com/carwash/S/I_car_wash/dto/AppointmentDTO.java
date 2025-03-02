@@ -4,10 +4,7 @@ import com.carwash.S.I_car_wash.Entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.time.LocalDateTime;
@@ -16,6 +13,7 @@ import java.time.LocalDateTime;
 public class AppointmentDTO {
 
     private Long appointmentId;
+
     @NotNull(message = "Appointment date and time cannot be null")
     private LocalDateTime appointmentDateTime;
 
