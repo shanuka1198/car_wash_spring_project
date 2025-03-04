@@ -1,10 +1,7 @@
 package com.carwash.S.I_car_wash.dto;
 
-import com.carwash.S.I_car_wash.Entity.User;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
 
 
 import java.time.LocalDateTime;

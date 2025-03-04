@@ -1,10 +1,8 @@
 package com.carwash.S.I_car_wash.Entity;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "appointment")
@@ -24,9 +22,9 @@ public class Appointment {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserEntity user;
 
-    public Appointment( LocalDateTime appointmentDateTime, String vehicleType, String serviceType, User user) {
+    public Appointment( LocalDateTime appointmentDateTime, String vehicleType, String serviceType, UserEntity user) {
         this.appointmentDateTime = appointmentDateTime;
         this.vehicleType = vehicleType;
         this.serviceType = serviceType;
@@ -69,11 +67,11 @@ public class Appointment {
         this.serviceType = serviceType;
     }
 
-    public User getUser() {
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
         this.user = user;
     }
 

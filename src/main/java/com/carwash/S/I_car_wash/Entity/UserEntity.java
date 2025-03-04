@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserEntity {
     public enum Role {
         ADMIN,
         CLIENT
@@ -17,8 +17,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(nullable = false)
-    private String userName;
+    @Column(nullable = false,unique = true)
+    private String username;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -37,11 +37,11 @@ public class User {
     private List<Appointment> appointments=new ArrayList<>();
 
 
-    public User() {
+    public UserEntity() {
     }
 
-    public User(String userName, String email, String address, Role role, String password, List<Appointment> appointments) {
-        this.userName = userName;
+    public UserEntity(String username, String email, String address, Role role, String password, List<Appointment> appointments) {
+        this.username = username;
         this.email = email;
         this.address = address;
         this.role = role;
@@ -57,12 +57,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -89,8 +89,8 @@ public class User {
         this.role = role;
     }
 
-    public String getPassword(String password) {
-        return this.password;
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {

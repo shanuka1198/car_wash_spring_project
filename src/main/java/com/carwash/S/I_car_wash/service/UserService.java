@@ -1,17 +1,18 @@
 package com.carwash.S.I_car_wash.service;
 
-import com.carwash.S.I_car_wash.Entity.Appointment;
-import com.carwash.S.I_car_wash.Entity.User;
-import com.carwash.S.I_car_wash.dto.AppointmentDTO;
+import com.carwash.S.I_car_wash.Entity.UserEntity;
+import com.carwash.S.I_car_wash.dto.AuthReqDTO;
 import com.carwash.S.I_car_wash.dto.UserDTO;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface UserService {
-    User createUser(UserDTO userDTO);
-    List<User> getAllUsers();
+    UserEntity createUser(UserDTO userDTO);
+    String login(UserDTO userDTO);
+    List<UserEntity> getAllUsers();
     boolean deleteUsers(Long userId);
-    User updateUser(Long userId, UserDTO userDTO);
+    UserEntity updateUser(Long userId, UserDTO userDTO);
 }
