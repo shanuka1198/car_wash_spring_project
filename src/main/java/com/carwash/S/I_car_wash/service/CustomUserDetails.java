@@ -1,6 +1,7 @@
 package com.carwash.S.I_car_wash.service;
 
 import com.carwash.S.I_car_wash.Entity.UserEntity;
+import com.carwash.S.I_car_wash.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,9 +13,9 @@ import java.util.List;
 public class CustomUserDetails implements UserDetails {
 
 
-    private final UserEntity user;
+    private final UserDTO user;
 
-    public CustomUserDetails(UserEntity user) {
+    public CustomUserDetails(UserDTO user) {
         this.user = user;
     }
 
