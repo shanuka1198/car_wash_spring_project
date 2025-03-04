@@ -1,7 +1,6 @@
 package com.carwash.S.I_car_wash.service;
 
 import com.carwash.S.I_car_wash.Entity.UserEntity;
-import com.carwash.S.I_car_wash.dto.AuthReqDTO;
 import com.carwash.S.I_car_wash.dto.UserDTO;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
