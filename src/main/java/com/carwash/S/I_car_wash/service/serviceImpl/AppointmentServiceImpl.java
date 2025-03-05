@@ -50,8 +50,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getAppointments() {
-        return List.of();
+    public List<Appointment> getAllAppointments() {
+        return appointmentRepository.findAll();
     }
 
     @Override

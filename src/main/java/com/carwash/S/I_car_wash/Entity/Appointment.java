@@ -1,5 +1,6 @@
 package com.carwash.S.I_car_wash.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ public class Appointment {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private UserEntity user;
 
     public Appointment( LocalDateTime appointmentDateTime, String vehicleType, String serviceType, UserEntity user) {
