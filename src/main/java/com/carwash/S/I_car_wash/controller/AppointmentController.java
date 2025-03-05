@@ -25,4 +25,9 @@ public class AppointmentController {
     public List<Appointment> getAllAppointments(){
         return appointmentService.getAllAppointments();
     }
+
+    @DeleteMapping("/appointment/{appointmentId}")
+    public boolean deleteAppointment(@PathVariable Long appointmentId) {
+        return appointmentService.deleteAppointment(appointmentId);
+    }
 }

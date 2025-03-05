@@ -6,7 +6,6 @@ import com.carwash.S.I_car_wash.Entity.UserEntity;
 import com.carwash.S.I_car_wash.dto.AppointmentDTO;
 import com.carwash.S.I_car_wash.repository.UserRepository;
 import com.carwash.S.I_car_wash.service.AppointmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,7 +55,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public boolean deleteAppointment(Long appointmentId) {
-        return false;
+        try {
+            appointmentRepository.deleteById(appointmentId);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Override
