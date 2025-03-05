@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserEntity> getAllUsers() {
-        return List.of();
+        return userRepository.findAll();
     }
 
     @Override

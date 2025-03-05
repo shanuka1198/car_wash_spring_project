@@ -22,16 +22,19 @@ public class AppointmentController {
     }
 
     @GetMapping("/all_appointment")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Appointment> getAllAppointments(){
         return appointmentService.getAllAppointments();
     }
 
     @DeleteMapping("/appointment/{appointmentId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENT')")
     public boolean deleteAppointment(@PathVariable Long appointmentId) {
         return appointmentService.deleteAppointment(appointmentId);
     }
 
     @PutMapping("/appointment/{appointmentId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENT')")
     public Appointment updateAppointment(@PathVariable Long appointmentId,@RequestBody AppointmentDTO appointmentDTO) throws Exception {
         return appointmentService.updateAppointment(appointmentId,appointmentDTO);
     }
