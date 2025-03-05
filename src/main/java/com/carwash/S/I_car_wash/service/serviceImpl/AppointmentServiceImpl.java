@@ -6,6 +6,7 @@ import com.carwash.S.I_car_wash.Entity.UserEntity;
 import com.carwash.S.I_car_wash.dto.AppointmentDTO;
 import com.carwash.S.I_car_wash.repository.UserRepository;
 import com.carwash.S.I_car_wash.service.AppointmentService;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +17,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
     private final AppointmentRepository appointmentRepository;
-
-
     private final UserRepository userRepository;
 
     public AppointmentServiceImpl(AppointmentRepository appointmentRepository, UserRepository userRepository) {
@@ -64,7 +63,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public Appointment updateAppointment(Long appointmentId, AppointmentDTO appointmentDTO) {
-        return null;
+    public Appointment updateAppointment(Long appointmentId, AppointmentDTO appointmentDTO) throws Exception {
+        Appointment appointment=appointmentRepository.findById(appointmentId).orElseThrow(() ->
+                new Exception("Appointment not found with id: " + appointmentId));
+
+
+        appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
+        appointment.setVehicleType(appointmentDTO.getVehicleType());
+        appointment.setServiceType(appointmentDTO.getServiceType());
+        return appointmentRepository.save(appointment);
     }
 }

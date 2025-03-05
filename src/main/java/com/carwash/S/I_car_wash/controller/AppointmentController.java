@@ -30,4 +30,9 @@ public class AppointmentController {
     public boolean deleteAppointment(@PathVariable Long appointmentId) {
         return appointmentService.deleteAppointment(appointmentId);
     }
+
+    @PutMapping("/appointment/{appointmentId}")
+    public Appointment updateAppointment(@PathVariable Long appointmentId,@RequestBody AppointmentDTO appointmentDTO) throws Exception {
+        return appointmentService.updateAppointment(appointmentId,appointmentDTO);
+    }
 }

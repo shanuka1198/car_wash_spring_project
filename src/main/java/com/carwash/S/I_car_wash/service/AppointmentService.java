@@ -11,5 +11,5 @@ public interface AppointmentService {
     Appointment createAppointment(AppointmentDTO appointmentDTO);
     List<Appointment> getAllAppointments();
     boolean deleteAppointment(Long appointmentId);
-    Appointment updateAppointment(Long appointmentId, AppointmentDTO appointmentDTO);
+    Appointment updateAppointment(Long appointmentId, AppointmentDTO appointmentDTO) throws Exception;
 }
