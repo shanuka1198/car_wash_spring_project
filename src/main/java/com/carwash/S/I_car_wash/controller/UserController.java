@@ -33,4 +33,9 @@ public class UserController {
     public List<UserEntity>getAllUser(){
         return userService.getAllUsers();
     }
+
+    @DeleteMapping("/{userId}")
+    public boolean deleteUser(@PathVariable Long userId){
+        return userService.deleteUsers(userId);
+    }
 }

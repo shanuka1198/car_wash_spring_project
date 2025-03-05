@@ -5,6 +5,7 @@ import com.carwash.S.I_car_wash.dto.UserDTO;
 import com.carwash.S.I_car_wash.repository.UserRepository;
 import com.carwash.S.I_car_wash.service.JwtService;
 import com.carwash.S.I_car_wash.service.UserService;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
@@ -88,7 +89,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUsers(Long userId) {
-        return false;
+        try {
+            userRepository.deleteById(userId);
+            return true;
+        } catch (EmptyResultDataAccessException e) {
+            return false;
+        }
+
     }
 
     @Override
