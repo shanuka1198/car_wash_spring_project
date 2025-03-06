@@ -100,6 +100,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity updateUser(Long userId, UserDTO userDTO) {
-        return null;
+        try {
+            UserEntity user=userRepository.findById(userId).orElseThrow(()->(
+                    new Exception("User not found")
+                    ));
+            user.setUsername(userDTO.getUsername());
+            user.setEmail(userDTO.getEmail());
+            user.setAddress(userDTO.getAddress());
+            user.setRole(userDTO.getRole());
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
+
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

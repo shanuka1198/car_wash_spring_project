@@ -38,4 +38,9 @@ public class UserController {
     public boolean deleteUser(@PathVariable Long userId){
         return userService.deleteUsers(userId);
     }
+
+    @PutMapping("/{userId}")
+    public UserEntity updateUser(@PathVariable Long userId,@RequestBody UserDTO userDTO){
+        return userService.updateUser(userId,userDTO);
+    }
 }
