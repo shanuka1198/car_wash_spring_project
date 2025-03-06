@@ -65,7 +65,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public Appointment updateAppointment(Long appointmentId, AppointmentDTO appointmentDTO) throws Exception {
         Appointment appointment=appointmentRepository.findById(appointmentId).orElseThrow(() ->
-                new Exception("Appointment not found with id: " + appointmentId));
+                new RuntimeException("Appointment not found with id: " + appointmentId));
 
 
         appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
