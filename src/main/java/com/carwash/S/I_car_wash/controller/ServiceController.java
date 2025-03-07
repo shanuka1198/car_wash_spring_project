@@ -24,4 +24,10 @@ public class ServiceController {
     public List<ServiceEntity> getAllService(){
         return serviceService.getAllService();
     }
+
+
+    @DeleteMapping("/{serviceId}")
+    public boolean deleteService(@PathVariable Long serviceId){
+        return serviceService.deleteService(serviceId);
+    }
 }

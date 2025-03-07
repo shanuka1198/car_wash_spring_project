@@ -41,7 +41,13 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public boolean deleteService(Long serviceId) {
-        return false;
+        try {
+            serviceRepository.deleteById(serviceId);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
     }
 
     @Override
