@@ -1,39 +1,43 @@
 package com.carwash.S.I_car_wash.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
-
 
 public class AppointmentDTO {
 
     private Long appointmentId;
 
-    @NotNull(message = "Appointment date and time cannot be null")
+    @NotNull(message = "Appointment Date and Time cannot be null")
     private LocalDateTime appointmentDateTime;
 
-    @NotBlank(message = "Vehicle type cannot be empty")
-    private String vehicleType;
+    @NotNull(message = "Vehicle type cannot be null")
+    @Size(min = 1, max = 10, message = "Vehicle type must be between 1 and 10 characters")
+    @Pattern(regexp = "CAR|VAN|BIKE|BUS|LORRY|SUV", message = "Vehicle type must be one of the following: CAR, VAN, BIKE, BUS, LORRY, SUV")
+    private String vehicleType; // String representation of the enum
 
-    @NotBlank(message = "Service type cannot be empty")
-    private String serviceType;
+    @NotNull(message = "Service ID cannot be null")
+    private Long serviceId; // ID of the service associated with the appointment
 
     @NotNull(message = "User ID cannot be null")
-    private Long userId;
+    private Long userId; // ID of the user associated with the appointment
 
-    public AppointmentDTO() {
-    }
+    // Default constructor
+    public AppointmentDTO() {}
 
-    public AppointmentDTO(Long appointmentId, LocalDateTime appointmentDateTime, String vehicleType, String serviceType, Long userId) {
+    // Constructor with parameters
+    public AppointmentDTO(Long appointmentId, LocalDateTime appointmentDateTime, String vehicleType, Long serviceId, Long userId) {
         this.appointmentId = appointmentId;
         this.appointmentDateTime = appointmentDateTime;
         this.vehicleType = vehicleType;
-        this.serviceType = serviceType;
+        this.serviceId = serviceId;
         this.userId = userId;
     }
 
+    // Getters and setters
     public Long getAppointmentId() {
         return appointmentId;
     }
@@ -58,12 +62,12 @@ public class AppointmentDTO {
         this.vehicleType = vehicleType;
     }
 
-    public String getServiceType() {
-        return serviceType;
+    public Long getServiceId() {
+        return serviceId;
     }
 
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
     }
 
     public Long getUserId() {
