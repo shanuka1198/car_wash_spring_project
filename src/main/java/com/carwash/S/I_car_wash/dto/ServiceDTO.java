@@ -27,12 +27,12 @@ public class ServiceDTO {
     private Double price;
 
     @NotNull(message = "Appointment ID cannot be null")
-    private Long appointmentId; // Associated Appointment entity ID
+    private Long appointmentId;
 
-    // Default constructor
+
     public ServiceDTO() {}
 
-    // Constructor with parameters
+
     public ServiceDTO(Long serviceId, ServiceEntity.ServiceType serviceType, List<String> serviceNames, Double price, Long appointmentId) {
         this.serviceId = serviceId;
         this.serviceType = serviceType;
@@ -41,7 +41,7 @@ public class ServiceDTO {
         this.appointmentId = appointmentId;
     }
 
-    // Getters and setters
+
     public Long getServiceId() {
         return serviceId;
     }

@@ -36,7 +36,7 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public List<ServiceEntity> getAllService() {
-        return List.of();
+        return serviceRepository.findAll();
     }
 
     @Override

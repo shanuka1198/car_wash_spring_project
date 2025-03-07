@@ -33,7 +33,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment createAppointment(AppointmentDTO appointmentDTO) {
-        // userId හෝ serviceId null ද?
+
         if (appointmentDTO.getUserId() == null) {
             throw new IllegalArgumentException("User ID cannot be null");
         }
@@ -41,23 +41,23 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new IllegalArgumentException("Service ID cannot be null");
         }
 
-        // UserEntity ID එක මත ලබා ගැනීම
+
         UserEntity user = userRepository.findById(appointmentDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + appointmentDTO.getUserId()));
 
-        // ServiceEntity ID එක මත ලබා ගැනීම
+
         ServiceEntity service = serviceRepository.findById(appointmentDTO.getServiceId())
                 .orElseThrow(() -> new RuntimeException("Service not found with ID: " + appointmentDTO.getServiceId()));
 
-        // Appointment entity එකක් සාදීම
+
         Appointment appointment = new Appointment();
         appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
-        // VehicleType enum එක String එකෙන් පරිවර්තනය කිරීම
-        appointment.setVehicleType(Appointment.VehicleType.valueOf(appointmentDTO.getVehicleType().toUpperCase()));
-        appointment.setUser(user); // UserEntity එක සම්බන්ධ කිරීම
-        appointment.setService(service); // ServiceEntity එක සම්බන්ධ කිරීම
 
-        // Appointment Entity එක සුරක්ෂිත කිරීම හා ප්‍රතිඵලය返 ගැන්වීම
+        appointment.setVehicleType(Appointment.VehicleType.valueOf(appointmentDTO.getVehicleType().toUpperCase()));
+        appointment.setUser(user);
+        appointment.setService(service);
+
+
         return appointmentRepository.save(appointment);
     }
 
@@ -84,27 +84,27 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment updateAppointment(Long appointmentId, AppointmentDTO appointmentDTO) throws Exception {
-        // Retrieve the appointment to be updated by ID
+
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + appointmentId));
 
-        // Update the basic fields of the appointment
+
         appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
         appointment.setVehicleType(Appointment.VehicleType.valueOf(appointmentDTO.getVehicleType().toUpperCase())); // Convert String to Enum
 
-        // Retrieve the associated user (you can assume the user exists, as the appointmentDTO includes userId)
+
         UserEntity user = userRepository.findById(appointmentDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + appointmentDTO.getUserId()));
-        appointment.setUser(user);  // Update user if needed (if user can change, or leave as is if it's fixed)
+        appointment.setUser(user);
 
-        // Retrieve the associated service (now the appointment is linked to a single service entity)
+
         ServiceEntity service = serviceRepository.findById(appointmentDTO.getServiceId())
                 .orElseThrow(() -> new RuntimeException("Service not found with id: " + appointmentDTO.getServiceId()));
 
-        // Only set the new service to the appointment (don't update the service type)
+
         appointment.setService(service);
 
-        // Save and return the updated appointment
+
         return appointmentRepository.save(appointment);
     }
 

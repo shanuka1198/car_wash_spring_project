@@ -17,18 +17,18 @@ public class AppointmentDTO {
     @NotNull(message = "Vehicle type cannot be null")
     @Size(min = 1, max = 10, message = "Vehicle type must be between 1 and 10 characters")
     @Pattern(regexp = "CAR|VAN|BIKE|BUS|LORRY|SUV", message = "Vehicle type must be one of the following: CAR, VAN, BIKE, BUS, LORRY, SUV")
-    private String vehicleType; // String representation of the enum
+    private String vehicleType;
 
     @NotNull(message = "Service ID cannot be null")
-    private Long serviceId; // ID of the service associated with the appointment
+    private Long serviceId;
 
     @NotNull(message = "User ID cannot be null")
-    private Long userId; // ID of the user associated with the appointment
+    private Long userId;
 
-    // Default constructor
+
     public AppointmentDTO() {}
 
-    // Constructor with parameters
+
     public AppointmentDTO(Long appointmentId, LocalDateTime appointmentDateTime, String vehicleType, Long serviceId, Long userId) {
         this.appointmentId = appointmentId;
         this.appointmentDateTime = appointmentDateTime;
@@ -37,7 +37,7 @@ public class AppointmentDTO {
         this.userId = userId;
     }
 
-    // Getters and setters
+
     public Long getAppointmentId() {
         return appointmentId;
     }
