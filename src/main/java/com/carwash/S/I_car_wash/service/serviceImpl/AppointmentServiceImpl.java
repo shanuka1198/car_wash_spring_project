@@ -12,9 +12,9 @@ import com.carwash.S.I_car_wash.service.AppointmentService;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
+
 
 
 @Service
@@ -33,37 +33,32 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment createAppointment(AppointmentDTO appointmentDTO) {
-
+        // Validate if the user ID is provided
         if (appointmentDTO.getUserId() == null) {
             throw new IllegalArgumentException("User ID cannot be null");
         }
-        if (appointmentDTO.getServiceId() == null) {
-            throw new IllegalArgumentException("Service ID cannot be null");
-        }
 
-
+        // Fetch the user from the repository
         UserEntity user = userRepository.findById(appointmentDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + appointmentDTO.getUserId()));
 
-
+        // Fetch the service from the repository using the serviceId from AppointmentDTO
         ServiceEntity service = serviceRepository.findById(appointmentDTO.getServiceId())
                 .orElseThrow(() -> new RuntimeException("Service not found with ID: " + appointmentDTO.getServiceId()));
 
-
+        // Create a new Appointment using the AppointmentDTO
         Appointment appointment = new Appointment();
         appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
-
-        appointment.setVehicleType(Appointment.VehicleType.valueOf(appointmentDTO.getVehicleType().toUpperCase()));
+        appointment.setVehicleType(Appointment.VehicleType.valueOf(appointmentDTO.getVehicleType().name())); // Convert String to Enum
         appointment.setUser(user);
-        appointment.setService(service);
+        appointment.setService(service); // Set the service for this appointment
 
+        // ⚡ Add the appointment to the service entity (One-to-Many relationship)
+        service.getAppointments().add(appointment);
 
+        // Save the appointment (Cascade will save it under the service)
         return appointmentRepository.save(appointment);
     }
-
-
-
-
 
 
 
@@ -83,35 +78,33 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public Appointment updateAppointment(Long appointmentId, AppointmentDTO appointmentDTO) throws Exception {
-
+    public Appointment updateAppointment(Long appointmentId, AppointmentDTO appointmentDTO) {
+        // Fetch the existing appointment
         Appointment appointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + appointmentId));
+                .orElseThrow(() -> new RuntimeException("Appointment not found with ID: " + appointmentId));
 
-
+        // Update the appointment details from the AppointmentDTO
         appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
-        appointment.setVehicleType(Appointment.VehicleType.valueOf(appointmentDTO.getVehicleType().toUpperCase())); // Convert String to Enum
+        appointment.setVehicleType(Appointment.VehicleType.valueOf(appointmentDTO.getVehicleType().name())); // Convert String to Enum
 
-
+        // Fetch and update the user from the repository
         UserEntity user = userRepository.findById(appointmentDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + appointmentDTO.getUserId()));
         appointment.setUser(user);
 
-
+        // Fetch and update the service from the repository
         ServiceEntity service = serviceRepository.findById(appointmentDTO.getServiceId())
-                .orElseThrow(() -> new RuntimeException("Service not found with id: " + appointmentDTO.getServiceId()));
+                .orElseThrow(() -> new RuntimeException("Service not found with ID: " + appointmentDTO.getServiceId()));
 
+        // Remove the appointment from the old service (if changed)
+        if (!appointment.getService().getServiceId().equals(service.getServiceId())) {
+            appointment.getService().getAppointments().remove(appointment);
+            service.getAppointments().add(appointment);
+        }
 
-        appointment.setService(service);
+        appointment.setService(service); // Update the service for the appointment
 
-
+        // Save and return the updated appointment
         return appointmentRepository.save(appointment);
     }
-
-
-
-
-
-
-
 }

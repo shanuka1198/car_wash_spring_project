@@ -1,7 +1,7 @@
 package com.carwash.S.I_car_wash.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,28 +23,27 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // Many-to-One relationship with ServiceEntity
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id", nullable = false)
-    @JsonBackReference
     private ServiceEntity service;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
     private UserEntity user;
 
-    // Default constructor
+    // Default Constructor
     public Appointment() {}
 
-    // Constructor with parameters
-    public Appointment(LocalDateTime appointmentDateTime, VehicleType vehicleType, ServiceEntity service, UserEntity user) {
+    public Appointment(Long appointmentId, LocalDateTime appointmentDateTime, VehicleType vehicleType, ServiceEntity service, UserEntity user) {
+        this.appointmentId = appointmentId;
         this.appointmentDateTime = appointmentDateTime;
         this.vehicleType = vehicleType;
         this.service = service;
         this.user = user;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public Long getAppointmentId() {
         return appointmentId;
     }

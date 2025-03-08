@@ -1,42 +1,36 @@
 package com.carwash.S.I_car_wash.dto;
 
-
+import com.carwash.S.I_car_wash.Entity.Appointment.VehicleType;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-
+import jakarta.validation.constraints.FutureOrPresent;
 import java.time.LocalDateTime;
 
 public class AppointmentDTO {
 
     private Long appointmentId;
 
-    @NotNull(message = "Appointment Date and Time cannot be null")
+    @NotNull(message = "Appointment date and time cannot be null")
+    @FutureOrPresent(message = "Appointment date and time must be in the future or present")
     private LocalDateTime appointmentDateTime;
 
     @NotNull(message = "Vehicle type cannot be null")
-    @Size(min = 1, max = 10, message = "Vehicle type must be between 1 and 10 characters")
-    @Pattern(regexp = "CAR|VAN|BIKE|BUS|LORRY|SUV", message = "Vehicle type must be one of the following: CAR, VAN, BIKE, BUS, LORRY, SUV")
-    private String vehicleType;
+    private VehicleType vehicleType;
 
     @NotNull(message = "Service ID cannot be null")
-    private Long serviceId;
+    private Long serviceId; // Foreign Key for Service
 
     @NotNull(message = "User ID cannot be null")
     private Long userId;
 
-
     public AppointmentDTO() {}
 
-
-    public AppointmentDTO(Long appointmentId, LocalDateTime appointmentDateTime, String vehicleType, Long serviceId, Long userId) {
+    public AppointmentDTO(Long appointmentId, LocalDateTime appointmentDateTime, VehicleType vehicleType, Long serviceId, Long userId) {
         this.appointmentId = appointmentId;
         this.appointmentDateTime = appointmentDateTime;
         this.vehicleType = vehicleType;
         this.serviceId = serviceId;
         this.userId = userId;
     }
-
 
     public Long getAppointmentId() {
         return appointmentId;
@@ -54,11 +48,11 @@ public class AppointmentDTO {
         this.appointmentDateTime = appointmentDateTime;
     }
 
-    public String getVehicleType() {
+    public VehicleType getVehicleType() {
         return vehicleType;
     }
 
-    public void setVehicleType(String vehicleType) {
+    public void setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
     }
 

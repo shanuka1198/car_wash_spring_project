@@ -26,12 +26,23 @@ public class ServiceServiceImpl implements ServiceService {
 
         ServiceEntity serviceEntity = new ServiceEntity();
         serviceEntity.setServiceType(serviceDTO.getServiceType());
-        serviceEntity.setServiceNames(serviceDTO.getServiceNames()); // Ensure this is set
+        serviceEntity.setServiceId(serviceDTO.getServiceId());
         serviceEntity.setPrice(serviceDTO.getPrice());
 
-        System.out.println(serviceEntity.getServiceNames());
+//        // Fetch the Appointment entity using the appointmentId from the DTO
+//        Appointment appointment = appointmentRepository.findById(serviceDTO.getAppointmentId())
+//                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+//
+//        // Set the appointment in the serviceEntity
+//        serviceEntity.setAppointment(appointment);
+//
+//        // Print the service names (for debugging purposes)
+
+
+        // Save the ServiceEntity
         return serviceRepository.save(serviceEntity);
     }
+
 
 
     @Override

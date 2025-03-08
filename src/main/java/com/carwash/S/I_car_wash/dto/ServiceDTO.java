@@ -1,46 +1,32 @@
 package com.carwash.S.I_car_wash.dto;
 
-import com.carwash.S.I_car_wash.Entity.ServiceEntity;
-import jakarta.persistence.Convert;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import com.carwash.S.I_car_wash.Entity.ServiceEntity.ServiceType;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
+import jakarta.validation.constraints.Positive;
 import java.util.List;
 
 public class ServiceDTO {
 
-    @NotNull(message = "Service ID cannot be null")
     private Long serviceId;
 
     @NotNull(message = "Service type cannot be null")
-    private ServiceEntity.ServiceType serviceType; // Enum converted to String for JSON serialization
-
-
-    @NotEmpty(message = "Service names cannot be empty")
-    @Size(min = 1, message = "At least one service name must be provided")
-    private List<String> serviceNames;
+    private ServiceType serviceType;
 
     @NotNull(message = "Price cannot be null")
-    @Min(value = 0, message = "Price must be greater than or equal to 0")
+    @Positive(message = "Price must be greater than zero")
     private Double price;
 
-    @NotNull(message = "Appointment ID cannot be null")
-    private Long appointmentId;
-
+    // List of appointment IDs
+    private List<Long> appointmentIds;
 
     public ServiceDTO() {}
 
-
-    public ServiceDTO(Long serviceId, ServiceEntity.ServiceType serviceType, List<String> serviceNames, Double price, Long appointmentId) {
+    public ServiceDTO(Long serviceId, ServiceType serviceType, Double price, List<Long> appointmentIds) {
         this.serviceId = serviceId;
         this.serviceType = serviceType;
-        this.serviceNames = serviceNames;
         this.price = price;
-        this.appointmentId = appointmentId;
+        this.appointmentIds = appointmentIds;
     }
-
 
     public Long getServiceId() {
         return serviceId;
@@ -50,20 +36,12 @@ public class ServiceDTO {
         this.serviceId = serviceId;
     }
 
-    public ServiceEntity.ServiceType getServiceType() {
+    public ServiceType getServiceType() {
         return serviceType;
     }
 
-    public void setServiceType(ServiceEntity.ServiceType serviceType) {
+    public void setServiceType(ServiceType serviceType) {
         this.serviceType = serviceType;
-    }
-
-    public List<String> getServiceNames() {
-        return serviceNames;
-    }
-
-    public void setServiceNames(List<String> serviceNames) {
-        this.serviceNames = serviceNames;
     }
 
     public Double getPrice() {
@@ -74,11 +52,11 @@ public class ServiceDTO {
         this.price = price;
     }
 
-    public Long getAppointmentId() {
-        return appointmentId;
+    public List<Long> getAppointmentIds() {
+        return appointmentIds;
     }
 
-    public void setAppointmentId(Long appointmentId) {
-        this.appointmentId = appointmentId;
+    public void setAppointmentIds(List<Long> appointmentIds) {
+        this.appointmentIds = appointmentIds;
     }
 }
