@@ -30,4 +30,10 @@ public class ServiceController {
     public boolean deleteService(@PathVariable Long serviceId){
         return serviceService.deleteService(serviceId);
     }
+
+    @PutMapping("/{serviceId}")
+    public ServiceEntity updateService(@PathVariable Long serviceId,@RequestBody ServiceDTO serviceDTO){
+        return serviceService.updateService(serviceId,serviceDTO);
+    }
+
 }

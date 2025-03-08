@@ -17,7 +17,7 @@ public class ServiceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long serviceId;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     @Enumerated(EnumType.STRING)
     private ServiceType serviceType;
 

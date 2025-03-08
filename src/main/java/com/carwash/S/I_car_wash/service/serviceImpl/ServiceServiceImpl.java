@@ -63,6 +63,12 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public ServiceEntity updateService(Long serviceId, ServiceDTO serviceDTO) {
-        return null;
+        ServiceEntity service=serviceRepository.findById(serviceId).orElseThrow(()->(
+                new RuntimeException("Service Not Found")
+                ));
+
+        service.setServiceType(serviceDTO.getServiceType());
+        service.setPrice(serviceDTO.getPrice());
+        return serviceRepository.save(service);
     }
 }
