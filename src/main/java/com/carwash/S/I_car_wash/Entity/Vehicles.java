@@ -24,7 +24,6 @@ public class Vehicles {
     private VehicleType vehicleType;
 
     @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
     private List<Appointment> appointments;
 
     public Vehicles() {}

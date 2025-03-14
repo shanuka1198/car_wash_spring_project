@@ -27,7 +27,7 @@ public class ServiceEntity {
 
     // One-to-Many relationship: One service can have multiple appointments
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+
     private List<Appointment> appointments = new ArrayList<>();
 
     // Default Constructor

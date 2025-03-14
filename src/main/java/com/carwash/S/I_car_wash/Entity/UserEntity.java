@@ -35,7 +35,6 @@ public class UserEntity {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Appointment> appointments=new ArrayList<>();
 
 

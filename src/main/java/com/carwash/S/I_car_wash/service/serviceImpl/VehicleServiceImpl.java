@@ -47,6 +47,10 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicles updateVehicle(Long vehicleId, VehicleDTO vehicleDTO) {
-        return null;
+        Vehicles vehicles=vehicleRepository.findById(vehicleId).orElseThrow(()->(
+                new RuntimeException("Vehicle Not Found")
+                ));
+        vehicles.setVehicleType(vehicleDTO.getVehicleType());
+        return vehicleRepository.save(vehicles);
     }
 }

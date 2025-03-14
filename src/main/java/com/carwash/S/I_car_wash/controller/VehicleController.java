@@ -30,4 +30,9 @@ public class VehicleController {
     public boolean deleteVehicle(@PathVariable Long vehicleId){
         return vehicleService.deleteVehicle(vehicleId);
     }
+
+    @PutMapping("/{vehicleId}")
+    public Vehicles updateVehicles(@PathVariable Long vehicleId,@RequestBody VehicleDTO vehicleDTO){
+        return vehicleService.updateVehicle(vehicleId,vehicleDTO);
+    }
 }
