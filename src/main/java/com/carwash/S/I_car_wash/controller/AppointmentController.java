@@ -1,9 +1,11 @@
 package com.carwash.S.I_car_wash.controller;
 
 import com.carwash.S.I_car_wash.Entity.Appointment;
+import com.carwash.S.I_car_wash.dto.AppointmentResponseDTO;
 import com.carwash.S.I_car_wash.dto.AppointmentDTO;
 import com.carwash.S.I_car_wash.service.serviceImpl.AppointmentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +25,9 @@ public class AppointmentController {
 
     @GetMapping("/all_appointment")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<Appointment> getAllAppointments(){
-        return appointmentService.getAllAppointments();
+    public ResponseEntity<List<AppointmentResponseDTO>> getAppointments() {
+        List<AppointmentResponseDTO> response = appointmentService.getAllAppointments();
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/appointment/{appointmentId}")

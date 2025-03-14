@@ -1,5 +1,6 @@
 package com.carwash.S.I_car_wash.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ServiceEntity {
 
     // One-to-Many relationship: One service can have multiple appointments
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Appointment> appointments = new ArrayList<>();
 
     // Default Constructor

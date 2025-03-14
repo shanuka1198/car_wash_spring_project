@@ -1,8 +1,8 @@
 package com.carwash.S.I_car_wash.dto;
 
-import com.carwash.S.I_car_wash.Entity.Appointment.VehicleType;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 public class AppointmentDTO {
@@ -13,23 +13,36 @@ public class AppointmentDTO {
     @FutureOrPresent(message = "Appointment date and time must be in the future or present")
     private LocalDateTime appointmentDateTime;
 
-    @NotNull(message = "Vehicle type cannot be null")
-    private VehicleType vehicleType;
+    @NotNull(message = "Vehicle ID cannot be null")
+    private Long vehicleId;
 
     @NotNull(message = "Service ID cannot be null")
-    private Long serviceId; // Foreign Key for Service
+    private Long serviceId;
 
     @NotNull(message = "User ID cannot be null")
     private Long userId;
 
+    private String note;
+
+    @NotNull(message = "Service fee cannot be null")
+    private Double serviceFee=0.0;
+
+    private int discount = 0;
+
+    private Double totalFee = 0.0;
+
     public AppointmentDTO() {}
 
-    public AppointmentDTO(Long appointmentId, LocalDateTime appointmentDateTime, VehicleType vehicleType, Long serviceId, Long userId) {
+    public AppointmentDTO(Long appointmentId, LocalDateTime appointmentDateTime, Long vehicleId, Long serviceId, Long userId, String note, Double serviceFee, int discount, Double totalFee) {
         this.appointmentId = appointmentId;
         this.appointmentDateTime = appointmentDateTime;
-        this.vehicleType = vehicleType;
+        this.vehicleId = vehicleId;
         this.serviceId = serviceId;
         this.userId = userId;
+        this.note = note;
+        this.serviceFee = serviceFee;
+        this.discount = discount;
+        this.totalFee = totalFee;
     }
 
     public Long getAppointmentId() {
@@ -48,12 +61,12 @@ public class AppointmentDTO {
         this.appointmentDateTime = appointmentDateTime;
     }
 
-    public VehicleType getVehicleType() {
-        return vehicleType;
+    public Long getVehicleId() {
+        return vehicleId;
     }
 
-    public void setVehicleType(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
+    public void setVehicleId(Long vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
     public Long getServiceId() {
@@ -70,5 +83,37 @@ public class AppointmentDTO {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Double getServiceFee() {
+        return serviceFee;
+    }
+
+    public void setServiceFee(Double serviceFee) {
+        this.serviceFee = serviceFee;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public Double getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(Double totalFee) {
+        this.totalFee = totalFee;
     }
 }

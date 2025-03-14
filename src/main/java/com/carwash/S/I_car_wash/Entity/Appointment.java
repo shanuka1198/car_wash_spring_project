@@ -1,16 +1,17 @@
 package com.carwash.S.I_car_wash.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Builder;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "appointment")
 public class Appointment {
-
-    public enum VehicleType {
-        CAR, VAN, BIKE, BUS, LORRY, SUV
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +20,10 @@ public class Appointment {
     @Column(nullable = false)
     private LocalDateTime appointmentDateTime;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private VehicleType vehicleType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vehicle_id", nullable = false)
+    private Vehicles vehicle;
 
-    // Many-to-One relationship with ServiceEntity
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service_id", nullable = false)
     private ServiceEntity service;
@@ -32,18 +32,30 @@ public class Appointment {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    // Default Constructor
+    private String note;
+    @Column(nullable = false)
+    private Double serviceFee;
+
+
+    private int discount=0;
+
+    @Column(nullable = false)
+    private Double TotalFee=0.0;
+
     public Appointment() {}
 
-    public Appointment(Long appointmentId, LocalDateTime appointmentDateTime, VehicleType vehicleType, ServiceEntity service, UserEntity user) {
+    public Appointment(Long appointmentId, LocalDateTime appointmentDateTime, Vehicles vehicle, ServiceEntity service, UserEntity user, String note, Double serviceFee, int discount, Double totalFee) {
         this.appointmentId = appointmentId;
         this.appointmentDateTime = appointmentDateTime;
-        this.vehicleType = vehicleType;
+        this.vehicle = vehicle;
         this.service = service;
         this.user = user;
+        this.note = note;
+        this.serviceFee = serviceFee;
+        this.discount = discount;
+        TotalFee = totalFee;
     }
 
-    // Getters and Setters
     public Long getAppointmentId() {
         return appointmentId;
     }
@@ -60,12 +72,12 @@ public class Appointment {
         this.appointmentDateTime = appointmentDateTime;
     }
 
-    public VehicleType getVehicleType() {
-        return vehicleType;
+    public Vehicles getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleType(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
+    public void setVehicle(Vehicles vehicle) {
+        this.vehicle = vehicle;
     }
 
     public ServiceEntity getService() {
@@ -83,4 +95,38 @@ public class Appointment {
     public void setUser(UserEntity user) {
         this.user = user;
     }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Double getServiceFee() {
+        return serviceFee;
+    }
+
+    public void setServiceFee(Double serviceFee) {
+        this.serviceFee = serviceFee;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public Double getTotalFee() {
+        return TotalFee;
+    }
+
+    public void setTotalFee(Double totalFee) {
+        TotalFee = totalFee;
+    }
 }
+
+
