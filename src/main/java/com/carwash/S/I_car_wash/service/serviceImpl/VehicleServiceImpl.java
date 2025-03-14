@@ -1,7 +1,9 @@
 package com.carwash.S.I_car_wash.service.serviceImpl;
 
 import com.carwash.S.I_car_wash.Entity.Vehicles;
+import com.carwash.S.I_car_wash.dto.AppointmentResponseDTO;
 import com.carwash.S.I_car_wash.dto.VehicleDTO;
+import com.carwash.S.I_car_wash.dto.VehicleResponseDTO;
 import com.carwash.S.I_car_wash.repository.VehicleRepository;
 import com.carwash.S.I_car_wash.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +25,24 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicles> getAllVehicles() {
-        return List.of();
+    public List<VehicleResponseDTO> getAllVehicles() {
+        List<Vehicles>vehicles=vehicleRepository.findAll();
+        return vehicles.stream().map(VehicleResponseDTO::new).toList();
     }
 
     @Override
     public boolean deleteVehicle(Long vehicleId) {
-        return false;
+        Vehicles vehicles=vehicleRepository.findById(vehicleId).orElseThrow(()->(
+                new RuntimeException("Vehicles Not Found")
+                ));
+
+        System.out.println(vehicles.getVehicleId());
+        try {
+            vehicleRepository.deleteById(vehicleId);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Override

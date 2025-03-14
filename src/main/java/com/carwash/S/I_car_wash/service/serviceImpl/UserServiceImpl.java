@@ -69,7 +69,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public String login(UserDTO userDTO) {
 
-        System.out.println(userDTO.getUsername());
         Authentication authentication=authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userDTO.getUsername(),userDTO.getPassword())
         );
