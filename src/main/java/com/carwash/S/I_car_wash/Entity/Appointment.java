@@ -40,7 +40,7 @@ public class Appointment {
     private int discount=0;
 
     @Column(nullable = false)
-    private Double TotalFee=0.0;
+    private Double totalFee=0.0;
 
     public Appointment() {}
 
@@ -53,7 +53,7 @@ public class Appointment {
         this.note = note;
         this.serviceFee = serviceFee;
         this.discount = discount;
-        TotalFee = totalFee;
+        this.totalFee = totalFee;
     }
 
     public Long getAppointmentId() {
@@ -121,11 +121,11 @@ public class Appointment {
     }
 
     public Double getTotalFee() {
-        return TotalFee;
+        return totalFee;
     }
 
     public void setTotalFee(Double totalFee) {
-        TotalFee = totalFee;
+        this.totalFee = totalFee;
     }
 }
 
