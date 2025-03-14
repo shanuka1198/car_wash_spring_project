@@ -1,7 +1,9 @@
 package com.carwash.S.I_car_wash.service.serviceImpl;
 
 import com.carwash.S.I_car_wash.Entity.UserEntity;
+import com.carwash.S.I_car_wash.dto.AppointmentResponseDTO;
 import com.carwash.S.I_car_wash.dto.UserDTO;
+import com.carwash.S.I_car_wash.dto.UserResponseDTO;
 import com.carwash.S.I_car_wash.repository.UserRepository;
 import com.carwash.S.I_car_wash.service.JwtService;
 import com.carwash.S.I_car_wash.service.UserService;
@@ -82,8 +84,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<UserEntity> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponseDTO> getAllUsers() {
+        List<UserEntity>user=userRepository.findAll();
+        return user.stream().map(UserResponseDTO::new).toList();
     }
 
     @Override

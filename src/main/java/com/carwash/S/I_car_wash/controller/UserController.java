@@ -2,6 +2,7 @@ package com.carwash.S.I_car_wash.controller;
 
 import com.carwash.S.I_car_wash.Entity.UserEntity;
 import com.carwash.S.I_car_wash.dto.UserDTO;
+import com.carwash.S.I_car_wash.dto.UserResponseDTO;
 import com.carwash.S.I_car_wash.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserEntity>getAllUser(){
+    public List<UserResponseDTO>getAllUser(){
         return userService.getAllUsers();
     }
 

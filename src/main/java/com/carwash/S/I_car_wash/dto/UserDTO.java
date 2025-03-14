@@ -31,7 +31,8 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(String username, String email, String address, UserEntity.Role role, String password) {
+    public UserDTO(Long userId, String username, String email, String address, UserEntity.Role role, String password) {
+        this.userId = userId;
         this.username = username;
         this.email = email;
         this.address = address;
@@ -51,7 +52,7 @@ public class UserDTO {
         return username;
     }
 
-    public void setUserName(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
