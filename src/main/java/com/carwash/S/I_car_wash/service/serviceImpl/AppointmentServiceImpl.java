@@ -34,7 +34,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment createAppointment(AppointmentDTO appointmentDTO) {
-        // Validate input
+
         if (appointmentDTO.getUserId() == null) {
             throw new IllegalArgumentException("User ID cannot be null");
         }
@@ -45,7 +45,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new IllegalArgumentException("Vehicle ID cannot be null");
         }
 
-        // Fetch related entities
+
         UserEntity user = userRepository.findById(appointmentDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + appointmentDTO.getUserId()));
 
@@ -92,11 +92,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public Appointment updateAppointment(Long appointmentId, AppointmentDTO appointmentDTO) {
-        // Fetch the existing appointment
+
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new RuntimeException("Appointment not found with ID: " + appointmentId));
 
-        // Validate input
+
         if (appointmentDTO.getUserId() == null) {
             throw new IllegalArgumentException("User ID cannot be null");
         }
@@ -107,17 +107,17 @@ public class AppointmentServiceImpl implements AppointmentService {
             throw new IllegalArgumentException("Vehicle ID cannot be null");
         }
 
-        // Fetch and update the vehicle
+
         Vehicles vehicle = vehicleRepository.findById(appointmentDTO.getVehicleId())
                 .orElseThrow(() -> new RuntimeException("Vehicle not found with ID: " + appointmentDTO.getVehicleId()));
         appointment.setVehicle(vehicle);
 
-        // Fetch and update the user
+
         UserEntity user = userRepository.findById(appointmentDTO.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + appointmentDTO.getUserId()));
         appointment.setUser(user);
 
-        // Fetch and update the service
+
         ServiceEntity service = serviceRepository.findById(appointmentDTO.getServiceId())
                 .orElseThrow(() -> new RuntimeException("Service not found with ID: " + appointmentDTO.getServiceId()));
         appointment.setService(service);
@@ -125,13 +125,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         Double totalFee= (appointmentDTO.getServiceFee()*appointmentDTO.getDiscount())/100;
 
 
-        // Update the appointment date and time
         appointment.setAppointmentDateTime(appointmentDTO.getAppointmentDateTime());
         appointment.setNote(appointmentDTO.getNote());
         appointment.setServiceFee(appointmentDTO.getServiceFee());
         appointment.setDiscount(appointmentDTO.getDiscount());
         appointment.setTotalFee(appointment.getServiceFee()-totalFee);
-        // Save and return the updated appointment
+
         return appointmentRepository.save(appointment);
     }
 
