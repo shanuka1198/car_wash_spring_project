@@ -2,7 +2,7 @@ package com.carwash.S.I_car_wash.dto;
 
 import com.carwash.S.I_car_wash.Entity.Vehicles;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotNull;
+
 
 public class VehicleResponseDTO {
     @JsonProperty("vehicleId")

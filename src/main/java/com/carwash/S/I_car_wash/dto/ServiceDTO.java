@@ -13,7 +13,7 @@ public class ServiceDTO {
     private ServiceType serviceType;
 
 
-    // List of appointment IDs
+
     private List<Long> appointmentIds;
 
     public ServiceDTO() {}

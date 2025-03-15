@@ -5,6 +5,7 @@ import com.carwash.S.I_car_wash.dto.UserDTO;
 import com.carwash.S.I_car_wash.dto.UserResponseDTO;
 import com.carwash.S.I_car_wash.service.serviceImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,16 +32,19 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserResponseDTO>getAllUser(){
         return userService.getAllUsers();
     }
 
     @DeleteMapping("/{userId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENT')")
     public boolean deleteUser(@PathVariable Long userId){
         return userService.deleteUsers(userId);
     }
 
     @PutMapping("/{userId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENT')")
     public UserEntity updateUser(@PathVariable Long userId,@RequestBody UserDTO userDTO){
         return userService.updateUser(userId,userDTO);
     }

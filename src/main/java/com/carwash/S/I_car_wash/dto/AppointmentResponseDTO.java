@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public class AppointmentResponseDTO {
 
-    @JsonProperty("appointmentId") // Explicitly marking it as serializable
+    @JsonProperty("appointmentId")
     private Long appointmentId;
 
     @JsonProperty("appointmentDateTime")

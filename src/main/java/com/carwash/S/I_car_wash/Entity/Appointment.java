@@ -1,14 +1,11 @@
 package com.carwash.S.I_car_wash.Entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
-import lombok.Builder;
-import org.hibernate.engine.internal.Cascade;
-import org.springframework.boot.context.properties.bind.DefaultValue;
+
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 @Entity
 @Table(name = "appointment")
