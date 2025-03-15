@@ -12,19 +12,15 @@ public class ServiceDTO {
     @NotNull(message = "Service type cannot be null")
     private ServiceType serviceType;
 
-    @NotNull(message = "Price cannot be null")
-    @Positive(message = "Price must be greater than zero")
-    private Double price;
 
     // List of appointment IDs
     private List<Long> appointmentIds;
 
     public ServiceDTO() {}
 
-    public ServiceDTO(Long serviceId, ServiceType serviceType, Double price, List<Long> appointmentIds) {
+    public ServiceDTO(Long serviceId, ServiceType serviceType, List<Long> appointmentIds) {
         this.serviceId = serviceId;
         this.serviceType = serviceType;
-        this.price = price;
         this.appointmentIds = appointmentIds;
     }
 
@@ -42,14 +38,6 @@ public class ServiceDTO {
 
     public void setServiceType(ServiceType serviceType) {
         this.serviceType = serviceType;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public List<Long> getAppointmentIds() {

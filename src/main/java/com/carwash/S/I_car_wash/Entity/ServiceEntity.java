@@ -22,21 +22,17 @@ public class ServiceEntity {
     @Enumerated(EnumType.STRING)
     private ServiceType serviceType;
 
-    @Column(nullable = false)
-    private Double price;
 
     // One-to-Many relationship: One service can have multiple appointments
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-
     private List<Appointment> appointments = new ArrayList<>();
 
     // Default Constructor
     public ServiceEntity() {}
 
-    public ServiceEntity(Long serviceId, ServiceType serviceType, Double price) {
+    public ServiceEntity(Long serviceId, ServiceType serviceType) {
         this.serviceId = serviceId;
         this.serviceType = serviceType;
-        this.price = price;
     }
 
     // Getters and Setters
@@ -56,13 +52,6 @@ public class ServiceEntity {
         this.serviceType = serviceType;
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
 
     public List<Appointment> getAppointments() {
         return appointments;

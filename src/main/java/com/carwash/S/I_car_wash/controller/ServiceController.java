@@ -2,6 +2,7 @@ package com.carwash.S.I_car_wash.controller;
 
 import com.carwash.S.I_car_wash.Entity.ServiceEntity;
 import com.carwash.S.I_car_wash.dto.ServiceDTO;
+import com.carwash.S.I_car_wash.dto.ServiceResponseDTO;
 import com.carwash.S.I_car_wash.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class ServiceController {
     }
 
     @GetMapping
-    public List<ServiceEntity> getAllService(){
+    public List<ServiceResponseDTO> getAllService(){
         return serviceService.getAllService();
     }
 

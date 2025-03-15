@@ -3,6 +3,7 @@ package com.carwash.S.I_car_wash.service.serviceImpl;
 import com.carwash.S.I_car_wash.Entity.Appointment;
 import com.carwash.S.I_car_wash.Entity.ServiceEntity;
 import com.carwash.S.I_car_wash.dto.ServiceDTO;
+import com.carwash.S.I_car_wash.dto.ServiceResponseDTO;
 import com.carwash.S.I_car_wash.repository.AppointmentRepository;
 import com.carwash.S.I_car_wash.repository.ServiceRepository;
 import com.carwash.S.I_car_wash.service.AppointmentService;
@@ -27,7 +28,7 @@ public class ServiceServiceImpl implements ServiceService {
         ServiceEntity serviceEntity = new ServiceEntity();
         serviceEntity.setServiceType(serviceDTO.getServiceType());
         serviceEntity.setServiceId(serviceDTO.getServiceId());
-        serviceEntity.setPrice(serviceDTO.getPrice());
+
 
 //        // Fetch the Appointment entity using the appointmentId from the DTO
 //        Appointment appointment = appointmentRepository.findById(serviceDTO.getAppointmentId())
@@ -46,8 +47,9 @@ public class ServiceServiceImpl implements ServiceService {
 
 
     @Override
-    public List<ServiceEntity> getAllService() {
-        return serviceRepository.findAll();
+    public List<ServiceResponseDTO> getAllService() {
+        List<ServiceEntity>service=serviceRepository.findAll();
+        return service.stream().map(ServiceResponseDTO::new).toList();
     }
 
     @Override
@@ -68,7 +70,6 @@ public class ServiceServiceImpl implements ServiceService {
                 ));
 
         service.setServiceType(serviceDTO.getServiceType());
-        service.setPrice(serviceDTO.getPrice());
         return serviceRepository.save(service);
     }
 }
